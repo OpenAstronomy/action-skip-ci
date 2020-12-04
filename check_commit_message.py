@@ -35,7 +35,7 @@ for flag in accepted_flags:
         break
 
 if want_to_skip:
-    print(f'{flag} found in {pr_msg}, failing to stop downstream jobs')
+    print(f'"{flag}" found in "{pr_msg}", failing to stop downstream jobs')
     sys.exit(1)
 else:
-    print(f'No directive to skip CI found in {pr_msg}')
+    print(f'No directive to skip CI found in "{pr_msg}"')
