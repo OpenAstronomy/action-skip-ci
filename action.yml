@@ -1,0 +1,7 @@
+name: 'Check skip CI'
+description: 'Fails job if commit message wants to skip CI.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+  - 'none'
