@@ -37,7 +37,7 @@ for flag in accepted_flags:
 if want_to_skip:
     print(f'"{flag}" found in "{pr_msg}", cancelling this workflow')
     run_id = os.environ['GITHUB_RUN_ID']
-    wf = repo.get_workflow_run(run_id)
+    wf = repo.get_workflow_run(int(run_id))
     if wf.status in ('queued', 'in_progress'):
         wf.cancel()
         print(f'Cancelled {wf}')
