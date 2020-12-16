@@ -24,18 +24,20 @@ on:
   pull_request_target:
 
 jobs:
-  # This is placeholder for your real tests.
   # This action should be a step before you run your tests.
-  tests:
-    name: My tests
+  check_skip_ci:
+    name: Skip CI
     runs-on: ubuntu-latest
     steps:
     - name: Cancel workflow if CI is skipped
       uses: pllim/action-skip-ci@main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Run tests
-      ...
+
+  # This is placeholder for your real tests.
+  tests:
+    name: Run tests
+    ...
 ```
 
 *Note: If GitHub Actions ever supports this feature natively for pull requests, then we do not need this action.*
