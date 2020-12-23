@@ -1,7 +1,11 @@
 name: 'Check skip CI'
 description: 'Fails job if commit message wants to skip CI.'
+author: 'pllim'
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub access token'
+    required: true
+
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-  - 'none'
+  using: 'node12'
+  main: 'dist/index.js'

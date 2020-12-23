@@ -34,7 +34,7 @@ jobs:
     steps:
     - name: Fail means CI is skipped on purpose
       uses: pllim/action-skip-ci@main
-      env:
+      with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # This is placeholder for your real tests.
@@ -48,6 +48,7 @@ jobs:
 
 #### Why does this action not cancel workflow instead of failing?
 
-This is because cancelling the workflow does not seem to work when the command
-is issued from a pull request opened from a fork. The cancellation does not
+This is because cancelling the workflow does work when the command
+is issued from a pull request opened from a fork due to lack of
+write access from the fork's token. The cancellation does not
 fail but nothing gets cancelled anyway.
