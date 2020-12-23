@@ -48,7 +48,7 @@ jobs:
 
 #### Why does this action not cancel workflow instead of failing?
 
-This is because cancelling the workflow does work when the command
+This is because cancelling the workflow does not work when the command
 is issued from a pull request opened from a fork due to lack of
-write access from the fork's token. The cancellation does not
+write access from the fork's GitHub token. The cancellation does not
 fail but nothing gets cancelled anyway.
