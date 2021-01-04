@@ -27,7 +27,7 @@ async function run() {
         }
 
         if (accepted_flags.some(v => msg.includes(v))) {
-            core.setFailed(`"${commit.data.message}" contains directive to skip CI, failing this check`);
+            core.setFailed(`"${commit.data.message}" contains directive to skip, failing this check`);
 
             /* Instead of failing, can also try to cancel but the token needs write access,
                so we cannot implement this for OSS in reality. */
@@ -42,7 +42,7 @@ async function run() {
             });
             */
         } else {
-            core.info(`No directive to skip CI found in "${commit.data.message}", moving on...`);
+            core.info(`No directive to skip found in "${commit.data.message}", moving on...`);
         }
     } catch(err) {
         core.setFailed(`Action failed with error ${err}`);
