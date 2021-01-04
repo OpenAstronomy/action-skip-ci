@@ -3,10 +3,8 @@ import * as github from "@actions/github";
 
 async function run() {
     try {
-        const accepted_flags:Array<string> = [
-            '[skip ci]', '[ci skip]',
-            '[skip action]', '[action skip]',
-            '[skip actions]', '[actions skip]'];
+        const accepted_flags_input = core.getInput("SKIP_DIRECTIVES", { required: false });
+        const accepted_flags = accepted_flags_input.split(",");
 
         const pr = github.context.payload.pull_request;
         if (!pr) {

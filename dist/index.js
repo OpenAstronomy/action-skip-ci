@@ -41,11 +41,8 @@ const github = __importStar(__webpack_require__(438));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const accepted_flags = [
-                '[skip ci]', '[ci skip]',
-                '[skip action]', '[action skip]',
-                '[skip actions]', '[actions skip]'
-            ];
+            const accepted_flags_input = core.getInput("SKIP_DIRECTIVES", { required: false });
+            const accepted_flags = accepted_flags_input.split(",");
             const pr = github.context.payload.pull_request;
             if (!pr) {
                 core.info("This action only runs for pull request, exiting with no-op");

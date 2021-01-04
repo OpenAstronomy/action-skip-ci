@@ -13,6 +13,9 @@ these directives (case-insensitive):
 If it does, the job running this action will fail, thus preventing
 downstream jobs or steps from running. Otherwise, jobs will run as usual.
 
+The directives above are the defaults, but they could be customized
+using `SKIP_DIRECTIVES` (see example below).
+
 Non-pull request event will not be affected. This is because we want the CI
 to run when a PR is merged even though its last commit has a directive to
 skip CI for that PR.
@@ -35,6 +38,17 @@ jobs:
     - name: Fail means CI is skipped on purpose
       uses: pllim/action-skip-ci@main
       with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Example to use custom directives.
+  check_skip_another:
+    name: Skip something else
+    runs-on: ubuntu-latest
+    steps:
+    - name: Some other thing depends on this check (not shown)
+      uses: pllim/action-skip-ci@main
+      with:
+        SKIP_DIRECTIVES: '[skip other],[other skip]'
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # This is placeholder for your real tests.
