@@ -41,11 +41,8 @@ const github = __importStar(__webpack_require__(438));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const accepted_flags = [
-                '[skip ci]', '[ci skip]',
-                '[skip action]', '[action skip]',
-                '[skip actions]', '[actions skip]'
-            ];
+            const accepted_flags_input = core.getInput("SKIP_DIRECTIVES", { required: false });
+            const accepted_flags = accepted_flags_input.split(",");
             const pr = github.context.payload.pull_request;
             if (!pr) {
                 core.info("This action only runs for pull request, exiting with no-op");
@@ -64,7 +61,7 @@ function run() {
                 core.info(`    ${accepted_flags[i]}`);
             }
             if (accepted_flags.some(v => msg.includes(v))) {
-                core.setFailed(`"${commit.data.message}" contains directive to skip CI, failing this check`);
+                core.setFailed(`"${commit.data.message}" contains directive to skip, failing this check`);
                 /* Instead of failing, can also try to cancel but the token needs write access,
                    so we cannot implement this for OSS in reality. */
                 /*
@@ -79,7 +76,7 @@ function run() {
                 */
             }
             else {
-                core.info(`No directive to skip CI found in "${commit.data.message}", moving on...`);
+                core.info(`No directive to skip found in "${commit.data.message}", moving on...`);
             }
         }
         catch (err) {

@@ -3,10 +3,8 @@ import * as github from "@actions/github";
 
 async function run() {
     try {
-        const accepted_flags:Array<string> = [
-            '[skip ci]', '[ci skip]',
-            '[skip action]', '[action skip]',
-            '[skip actions]', '[actions skip]'];
+        const accepted_flags_input = core.getInput("SKIP_DIRECTIVES", { required: false });
+        const accepted_flags = accepted_flags_input.split(",");
 
         const pr = github.context.payload.pull_request;
         if (!pr) {
@@ -29,7 +27,7 @@ async function run() {
         }
 
         if (accepted_flags.some(v => msg.includes(v))) {
-            core.setFailed(`"${commit.data.message}" contains directive to skip CI, failing this check`);
+            core.setFailed(`"${commit.data.message}" contains directive to skip, failing this check`);
 
             /* Instead of failing, can also try to cancel but the token needs write access,
                so we cannot implement this for OSS in reality. */
@@ -44,7 +42,7 @@ async function run() {
             });
             */
         } else {
-            core.info(`No directive to skip CI found in "${commit.data.message}", moving on...`);
+            core.info(`No directive to skip found in "${commit.data.message}", moving on...`);
         }
     } catch(err) {
         core.setFailed(`Action failed with error ${err}`);
