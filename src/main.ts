@@ -3,14 +3,20 @@ import * as github from "@actions/github";
 
 async function run() {
     try {
-        const accepted_flags_input = core.getInput("SKIP_DIRECTIVES", { required: false });
-        const accepted_flags = accepted_flags_input.split(",");
-
         const pr = github.context.payload.pull_request;
         if (!pr) {
             core.info("This action only runs for pull request, exiting with no-op");
             return;
         }
+
+        /* Input always parsed as string, so need to convert to bool.
+           See https://github.com/actions/toolkit/issues/361
+        */
+        const no_fail_input = core.getInput("NO_FAIL", { required: false });
+        const no_fail = no_fail_input === "true";
+
+        const accepted_flags_input = core.getInput("SKIP_DIRECTIVES", { required: false });
+        const accepted_flags = accepted_flags_input.split(",");
 
         const gh_token = core.getInput("GITHUB_TOKEN", { required: true });
         const octokit = github.getOctokit(gh_token);
@@ -27,9 +33,16 @@ async function run() {
         }
 
         if (accepted_flags.some(v => msg.includes(v))) {
-            core.setFailed(`"${commit.data.message}" contains directive to skip, failing this check`);
+            core.info(`"${commit.data.message}" contains directive to skip, so...`)
+            if (no_fail) {
+                core.info('setting run_next to false');
+                core.setOutput('run_next', false);
+            } else {
+                core.setFailed('failing this check');
+            }
 
-            /* Instead of failing, can also try to cancel but the token needs write access,
+            /* Instead of failing or setting output, can also try to cancel but
+               the token needs write access,
                so we cannot implement this for OSS in reality. */
             /*
             const { GITHUB_RUN_ID } = process.env;
@@ -42,7 +55,13 @@ async function run() {
             });
             */
         } else {
-            core.info(`No directive to skip found in "${commit.data.message}", moving on...`);
+            core.info(`No directive to skip found in "${commit.data.message}", so...`);
+            if (no_fail) {
+                core.info('setting run_next to true');
+                core.setOutput('run_next', true);
+            } else {
+                core.info(`moving on...`);
+            }
         }
     } catch(err) {
         core.setFailed(`Action failed with error ${err}`);

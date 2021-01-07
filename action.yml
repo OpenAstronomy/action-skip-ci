@@ -1,11 +1,15 @@
 name: 'Check skip CI'
-description: 'Fails job if commit message wants to skip CI.'
+description: 'Fails job or set output if commit message wants to skip CI.'
 author: 'pllim'
 inputs:
   SKIP_DIRECTIVES:
     description: 'Comma separated terms to skip CI'
     default: '[skip ci],[ci skip],[skip action],[action skip],[skip actions],[actions skip]'
     required: false
+  NO_FAIL:
+     description: 'Set output instead of failing'
+     default: false
+     required: false
   GITHUB_TOKEN:
     description: 'GitHub access token'
     required: true
