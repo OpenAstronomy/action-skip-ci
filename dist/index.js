@@ -44,6 +44,7 @@ function run() {
             const pr = github.context.payload.pull_request;
             if (!pr) {
                 core.info("This action only runs for pull request, exiting with no-op");
+                core.setOutput('run_next', true); /* To handle NO_FAIL case */
                 return;
             }
             /* Input always parsed as string, so need to convert to bool.
