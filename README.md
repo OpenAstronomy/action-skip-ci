@@ -20,7 +20,7 @@ skip CI for that PR.
 *Note: If GitHub Actions ever supports this feature natively for pull requests,
 then we do not need this action.*
 
-#### Ways to customize
+## Ways to customize
 
 The behavior described above is the default, but it could be customized
 using these options (also see examples below):
@@ -32,7 +32,7 @@ using these options (also see examples below):
   Instead, it would set an output value for `run_next` to `true` or `false`
   to be used by downstream jobs.
 
-#### Examples
+## Examples
 
 Here are some simple examples to use this action in your workflows.
 
@@ -102,24 +102,24 @@ jobs:
     ...
 ```
 
-#### Why does this action not cancel workflow instead of failing?
+## Why does this action not cancel workflow instead of failing?
 
 This is because cancelling the workflow does not work when the command
 is issued from a pull request opened from a fork due to lack of
 write access from the fork's GitHub token. The cancellation does not
 fail but nothing gets cancelled anyway.
 
-#### For developers
+## For developers
 
-To install/update dependencies::
+To install/update dependencies:
 
     npm install
 
-To build::
+To build:
 
     npm run build
 
 To run it locally (might require tinkering with `src/main.ts` to mock
-the GitHub events)::
+the GitHub events):
 
     node dist/index.js
