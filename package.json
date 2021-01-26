@@ -1,31 +1,29 @@
 {
   "name": "action-skip-ci",
-  "version": "0.5.0",
+  "version": "0.8.0",
   "description": "Skip CI based on PR commit message",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && ncc build lib/main.js",
-    "format": "prettier --write **/*.ts"
+    "build": "tsc && ncc build lib/main.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pllim/action-skip-ci.git"
+    "url": "git+https://github.com/OpenAstronomy/action-skip-ci.git"
   },
   "keywords": [],
   "author": "",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/pllim/action-skip-ci/issues"
+    "url": "https://github.com/OpenAstronomy/action-skip-ci/issues"
   },
-  "homepage": "https://github.com/pllim/action-skip-ci",
+  "homepage": "https://github.com/OpenAstronomy/action-skip-ci",
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.26.1",
-    "prettier": "^2.2.1",
+    "@vercel/ncc": "^0.27.0",
     "typescript": "^4.1.3"
   }
 }
