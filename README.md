@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Fail means CI is skipped on purpose
-      uses: pllim/action-skip-ci@main
+      uses: OpenAstronomy/action-skip-ci@main
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -87,7 +87,7 @@ jobs:
       run_next: ${{ steps.skip_ci_step.outputs.run_next }}
     steps:
     - name: Set output to skip CI
-      uses: pllim/action-skip-ci@main
+      uses: OpenAstronomy/action-skip-ci@main
       id: skip_ci_step
       with:
         NO_FAIL: true
@@ -108,3 +108,18 @@ This is because cancelling the workflow does not work when the command
 is issued from a pull request opened from a fork due to lack of
 write access from the fork's GitHub token. The cancellation does not
 fail but nothing gets cancelled anyway.
+
+#### For developers
+
+To install/update dependencies::
+
+    npm install
+
+To build::
+
+    npm run build
+
+To run it locally (might require tinkering with `src/main.ts` to mock
+the GitHub events)::
+
+    node dist/index.js
