@@ -1,5 +1,11 @@
 # GitHub Action to skip CI in PR
 
+## Do not use this anymore
+
+See https://github.blog/changelog/2021-02-08-github-actions-skip-pull-request-and-push-workflows-with-skip-ci/ .
+
+## Introduction
+
 Check if the latest commit message in the pull request contains one of
 these directives (case-insensitive):
 
@@ -16,9 +22,6 @@ downstream jobs or steps from running. Otherwise, jobs will run as usual.
 Non-pull request event will not be affected. This is because we want the CI
 to run when a PR is merged even though its last commit has a directive to
 skip CI for that PR.
-
-*Note: If GitHub Actions ever supports this feature natively for pull requests,
-then we do not need this action.*
 
 ## Ways to customize
 
